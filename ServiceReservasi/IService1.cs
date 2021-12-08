@@ -11,23 +11,24 @@ namespace ServiceReservasi
     public interface IService1
     {
         [OperationContract]
-        string pemesanan(string IDPemesanan, string NamaCustomer, string NoTelpon, int JumlahPemesanan, string IDLokasi);
+        string pemesanan(string IDReservasi, string NamaCustomer, string NoTelepon, int JumlahPemesanan, string IDLokasi); // Method proses input data
         [OperationContract]
-        string editPemesanan(string IDPemesanan, string NamaCustomer);
+        string editPemesanan(string IDReservasi, string NamaCustomer, string No_telepon);
         [OperationContract]
-        string deletePemesanan(string IDPemsanan);
+        string deletePemesanan(string IDReservasi);
         [OperationContract]
-        List<CekLokasi> ReviewLokasi();
+        List<CekLokasi> ReviewLokasi();// Menampilkan data yang ada di database (select all) dengan menampilkan isi dari yang ada contract
         [OperationContract]
-        List<DetailLokasi> DetailLokasi();
+        List<DetailLokasi> DetailLokasi();// Menampilkan detail lokasi
         [OperationContract]
         List<Pemesanan> Pemesanan();
     }
 
-    public class CekLokasi
+    [DataContract]
+    public class CekLokasi // Daftar lokasi
     {
         [DataMember]
-        public string IDLokasi { get; set; }
+        public string IDLokasi { get; set; }// Variabel dari public class
         [DataMember]
         public string NamaLokasi { get; set; }
         [DataMember]
@@ -35,10 +36,10 @@ namespace ServiceReservasi
     }
 
     [DataContract]
-    public class DetailLokasi
+    public class DetailLokasi // Menampilkan detail lokasi
     {
         [DataMember]
-        public string IDLokasi { get; set; }
+        public string IDLokasi { get; set; } // Variabel dari public class
         [DataMember]
         public string NamaLokasi { get; set; }
         [DataMember]
@@ -48,38 +49,17 @@ namespace ServiceReservasi
     }
 
     [DataContract]
-    public class Pemesanan
+    public class Pemesanan // Create
     {
         [DataMember]
-        public string IDPemesanan { get; set; }
+        public string IDReservasi { get; set; }
         [DataMember]
-        public string NamaCustomer { get; set; }
+        public string NamaCustomer { get; set; } // Method
         [DataMember]
-        public string NoTelpon { get; set; }
+        public string NoTelepon { get; set; }
         [DataMember]
         public int JumlahPemesanan { get; set; }
         [DataMember]
-        public string IDLokasi { get; set; }
-    }
-
-    [DataContract]
-    public class CompositeType
-    {
-        bool boolValue = true;
-        string stringValue = "Hello ";
-
-        [DataMember]
-        public bool BoolValue
-        {
-            get { return boolValue; }
-            set { boolValue = value; }
-        }
-
-        [DataMember]
-        public string StringValue
-        {
-            get { return stringValue; }
-            set { stringValue = value; }
-        }
+        public string Lokasi { get; set; }
     }
 }
